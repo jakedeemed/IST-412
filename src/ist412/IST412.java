@@ -5,6 +5,9 @@
  */
 package ist412;
 
+import ist412.Views.DashboardView;
+import ist412.Views.LoginView;
+
 /**
  *
  * @author jakedotts
@@ -15,7 +18,11 @@ public class IST412 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
+        LoginView initProgram = new LoginView();
+        initProgram.setVisible(true);
+
+        //DashboardView initProgram = new DashboardView();
+        //initProgram.setVisible(true);
     }
     
 }
