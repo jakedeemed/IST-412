@@ -5,13 +5,15 @@
  */
 package ist412.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+
 
 /**
  *
  * @author Jorge
  */
-class UserList {
+public class UserList implements Serializable {
     
     private ArrayList<User> theUserList;
     

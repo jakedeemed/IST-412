@@ -5,13 +5,15 @@
  */
 package ist412.Models;
 
+import ist412.Controllers.SerializedDataCntl;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Jorge
  */
-class User {
+public class User implements Serializable {
     
     private String userName;
     private ArrayList<Account> theAccountList;
@@ -19,6 +21,11 @@ class User {
     
     public User(String userName){
         this.userName = userName;
+        this.theBudgetList = new ArrayList();
+        System.out.println(theBudgetList);
+        this.theBudgetList.add(new Budget("Original Test Budget"));
+        System.out.println(theBudgetList);
+        SerializedDataCntl.getSerializedDataCntl().writeSerializedDataModel();
     }
 
     /**

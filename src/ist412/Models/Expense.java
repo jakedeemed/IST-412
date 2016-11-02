@@ -5,11 +5,13 @@
  */
 package ist412.Models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Jorge
  */
-class Expense {
+public class Expense implements Serializable {
     
     private String expenseName;
     private double expenseAmount;

@@ -5,13 +5,14 @@
  */
 package ist412.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Jorge
  */
-class Account {
+public class Account implements Serializable {
     
     private String accountName;
     private ArrayList<Expense> theExpenseList;

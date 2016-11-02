@@ -40,8 +40,6 @@ public class SerializedDataCntl implements Serializable{
     }
 
     //Singleton design pattern ensures there is only ever one SerializedCollectionCntl.
-
-   
     public static SerializedDataCntl getSerializedDataCntl(){
         if(theSerializedDataCntl == null){
             theSerializedDataCntl = new SerializedDataCntl();
