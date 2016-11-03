@@ -4,7 +4,11 @@
  * and open the template in the editor.
  */
 package ist412.Views;
-
+import ist412.Controllers.SerializedDataCntl;
+import ist412.Models.Budget;
+import ist412.Models.UserList;
+import ist412.Models.User;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,9 +22,16 @@ public class DashboardView extends javax.swing.JFrame {
      */
     public NavigationView showNav;
     public NewBudgetView showNewBudget;
+    ArrayList<Budget> theBudgetList = SerializedDataCntl.getSerializedDataCntl().getSerializedDataModel().getUserList().getTheUserList().get(0).getTheBudgetList();
+    
     
     public DashboardView() {
         initComponents();
+        Double budgetAmountLabel = theBudgetList.get(theBudgetList.size()-1).getBudgetAmount();
+        BudgetItemsLabel.setText(theBudgetList.get(theBudgetList.size()-1).getBudgetName());
+        BudgetAmountLabel.setText("$"+budgetAmountLabel);
+        BudgetBalanceLabel.setText("$"+budgetAmountLabel);
+        
         
     }
 
@@ -35,7 +46,7 @@ public class DashboardView extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         NavButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        BudgetItemsLabel = new javax.swing.JLabel();
         EditButton = new javax.swing.JButton();
         ViewAllButton = new javax.swing.JButton();
         NewBudgetButton = new javax.swing.JButton();
@@ -43,9 +54,10 @@ public class DashboardView extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        BudgetBalanceLabel = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        BudgetAmountLabel = new javax.swing.JLabel();
+        RefreshButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,7 +70,7 @@ public class DashboardView extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Currently no budget items");
+        BudgetItemsLabel.setText("Currently no budget items");
 
         EditButton.setText("EDIT");
         EditButton.addActionListener(new java.awt.event.ActionListener() {
@@ -89,11 +101,18 @@ public class DashboardView extends javax.swing.JFrame {
 
         jLabel6.setText("BUDGET");
 
-        jLabel7.setText("$0.00");
+        BudgetBalanceLabel.setText("$0.00");
 
         jLabel8.setText("$0.00");
 
-        jLabel9.setText("$0.00");
+        BudgetAmountLabel.setText("$0.00");
+
+        RefreshButton.setText("Refresh");
+        RefreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RefreshButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,13 +121,8 @@ public class DashboardView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(NavButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(106, 106, 106)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(jLabel2))
+                        .addComponent(BudgetItemsLabel))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(44, 44, 44)
                         .addComponent(EditButton)
@@ -120,13 +134,13 @@ public class DashboardView extends javax.swing.JFrame {
                         .addGap(129, 129, 129)
                         .addComponent(jLabel3)))
                 .addContainerGap(69, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jLabel7)))
+                        .addComponent(BudgetBalanceLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
@@ -135,9 +149,17 @@ public class DashboardView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jLabel9))
+                        .addComponent(BudgetAmountLabel))
                     .addComponent(jLabel6))
                 .addGap(48, 48, 48))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(NavButton, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(106, 106, 106)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(RefreshButton)
+                .addGap(17, 17, 17))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,9 +167,10 @@ public class DashboardView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NavButton)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(RefreshButton))
                 .addGap(47, 47, 47)
-                .addComponent(jLabel2)
+                .addComponent(BudgetItemsLabel)
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ViewAllButton)
@@ -162,9 +185,9 @@ public class DashboardView extends javax.swing.JFrame {
                     .addComponent(jLabel6))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
+                    .addComponent(BudgetBalanceLabel)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel9))
+                    .addComponent(BudgetAmountLabel))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -208,6 +231,16 @@ public class DashboardView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_EditButtonActionPerformed
 
+    private void RefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshButtonActionPerformed
+        // TODO add your handling code here:
+        if(evt.getSource() == RefreshButton){
+            Double budgetAmountLabel = theBudgetList.get(theBudgetList.size()-1).getBudgetAmount();
+            BudgetItemsLabel.setText(theBudgetList.get(theBudgetList.size()-1).getBudgetName());
+            BudgetAmountLabel.setText("$"+budgetAmountLabel);
+            BudgetBalanceLabel.setText("$"+budgetAmountLabel);
+        }
+    }//GEN-LAST:event_RefreshButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -246,23 +279,25 @@ public class DashboardView extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new DashboardView().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BudgetAmountLabel;
+    private javax.swing.JLabel BudgetBalanceLabel;
+    private javax.swing.JLabel BudgetItemsLabel;
     private javax.swing.JButton EditButton;
     private javax.swing.JButton NavButton;
     private javax.swing.JButton NewBudgetButton;
+    private javax.swing.JButton RefreshButton;
     private javax.swing.JButton ViewAllButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     // End of variables declaration//GEN-END:variables
 }
