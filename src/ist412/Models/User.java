@@ -18,13 +18,19 @@ public class User implements Serializable {
     private String userName;
     private ArrayList<Account> theAccountList;
     private ArrayList<Budget> theBudgetList;
+    private ArrayList<Expense> theExpenseList;
     
     public User(String userName){
         this.userName = userName;
         this.theBudgetList = new ArrayList();
-        System.out.println(theBudgetList);
+        this.theAccountList = new ArrayList();
+        this.theExpenseList = new ArrayList();
+        this.theExpenseList.add(new Expense("Test Date", "Test name", 0));
         this.theBudgetList.add(new Budget("Original Test Budget"));
+        this.theAccountList.add(new Account("Original Test Account"));
         System.out.println(theBudgetList);
+        System.out.println(theAccountList);
+        System.out.println(theExpenseList);
         SerializedDataCntl.getSerializedDataCntl().writeSerializedDataModel();
     }
 
@@ -68,6 +74,14 @@ public class User implements Serializable {
      */
     public void setTheBudgetList(ArrayList<Budget> theBudgetList) {
         this.theBudgetList = theBudgetList;
+    }
+    
+    public ArrayList<Expense> getTheExpenseList(){
+        return theExpenseList;
+    }
+    
+    public void setTheExpenseList(ArrayList<Expense> theExpenseList){
+        this.theExpenseList = theExpenseList;
     }
     
 }

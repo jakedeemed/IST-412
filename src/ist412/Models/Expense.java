@@ -15,10 +15,25 @@ public class Expense implements Serializable {
     
     private String expenseName;
     private double expenseAmount;
+    private String expenseDate;
     
-    public Expense(String expenseName, double expenseAmount){
+    public Expense(){
+        
+    }
+    
+    public Expense(String expenseDate, String expenseName, double expenseAmount){
+        this.expenseDate = expenseDate;
         this.expenseName = expenseName;
         this.expenseAmount = expenseAmount;
+    }
+    public String getExpenseName(){
+        return expenseName;
+    }
+    public String getExpenseDate(){
+        return expenseDate;
+    }
+    public Double getExpenseAmount(){
+        return expenseAmount;
     }
     
 }

@@ -5,6 +5,7 @@
  */
 package ist412.Models;
 
+import ist412.Controllers.SerializedDataCntl;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -15,10 +16,15 @@ import java.util.ArrayList;
 public class Account implements Serializable {
     
     private String accountName;
+    private ArrayList<Account> theAccountList;
     private ArrayList<Expense> theExpenseList;
     
     public Account(String accountName){
         this.accountName = accountName;
+        this.theExpenseList = new ArrayList();
+        this.theExpenseList.add(new Expense("Test Date", "Test name", 0));
+        System.out.println(theExpenseList);
+        SerializedDataCntl.getSerializedDataCntl().writeSerializedDataModel();
     }
 
     /**
