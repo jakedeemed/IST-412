@@ -55,7 +55,6 @@ public class DashboardView extends javax.swing.JFrame {
                 for(int i = 1; i<theBudgetList.size(); i++){
                     BudgetName = theBudgetList.get(i).getBudgetName();
                     BudgetAmountDoub = theBudgetList.get(i).getBudgetAmount();
-                    //BudgetAmountDec = Double.toString(BudgetAmountDoub);
                     BudgetAmount = String.format("%.2f", BudgetAmountDoub);
                     Object[] BudgetData = {BudgetName, BudgetAmount};
                     newTable.addRow(BudgetData);                 
@@ -257,9 +256,9 @@ public class DashboardView extends javax.swing.JFrame {
             showBudget.setVisible(true);
             this.setVisible(false);
             BudgetAmountDoub = theBudgetList.get(rowNumber+1).getBudgetAmount();
-            BudgetAmount = Double.toString(BudgetAmountDoub);           
+            BudgetAmount = String.format("%.2f", BudgetAmountDoub);          
             showBudget.setBudgetName(theBudgetList.get(rowNumber+1).getBudgetName());
-            showBudget.setBudgetAmount(BudgetAmount);
+            showBudget.setBudgetAmount("$"+BudgetAmount);
             }
             
         }

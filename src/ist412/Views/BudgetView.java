@@ -9,7 +9,9 @@ import ist412.Controllers.SerializedDataCntl;
 import ist412.Models.Budget;
 import ist412.Models.Expense;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,10 +29,13 @@ public class BudgetView extends javax.swing.JFrame {
     Double ExpenseAmountDoub;
     String ExpenseDate;
     String ExpenseAmount;
+    double SpentAmountDoub = 0;
+    String SpentAmount;
     ArrayList<Expense> theExpenseList = SerializedDataCntl.getSerializedDataCntl().getSerializedDataModel()
                     .getUserList().getTheUserList().get(0).getTheAccountList().get(0).getTheExpenseList();
     public BudgetView() {
         initComponents();
+        populateTable();
     }
     public void setBudgetName(String BudgetName){
         BudgetNameLabel.setText(BudgetName);
@@ -41,7 +46,20 @@ public class BudgetView extends javax.swing.JFrame {
     }
     
     public void populateTable(){
-        
+        newTable = (DefaultTableModel) ExpenseTable.getModel();             
+                for(int i = 1; i<theExpenseList.size(); i++){
+                    //theExpenseList.removeAll(Arrays.asList(null, null, null));
+                    SpentAmountDoub = SpentAmountDoub + theExpenseList.get(i).getExpenseAmount();
+                    ExpenseName = theExpenseList.get(i).getExpenseName();
+                    ExpenseAmountDoub = theExpenseList.get(i).getExpenseAmount();
+                    ExpenseDate = theExpenseList.get(i).getExpenseDate();
+                    ExpenseAmount = String.format("%.2f", ExpenseAmountDoub);
+                    SpentAmount = String.format("%.2f", SpentAmountDoub);
+                    BudgetSpentLabel.setText("$"+SpentAmount);
+                    Object[] ExpenseData = {ExpenseDate, ExpenseName, ExpenseAmount};
+                    newTable.addRow(ExpenseData); 
+                    
+                }
     }
 
     /**
@@ -68,6 +86,9 @@ public class BudgetView extends javax.swing.JFrame {
         ItemField = new javax.swing.JTextField();
         AmountField = new javax.swing.JTextField();
         AddButton = new javax.swing.JButton();
+        BudgetSpentLabel = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        ALabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,13 +105,11 @@ public class BudgetView extends javax.swing.JFrame {
 
         BudgetBalanceLabel.setText("$0.00");
 
-        BudgetNameLabel.setText("Currently no budget items");
+        BudgetNameLabel.setText("Name");
 
         ExpenseTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Date", "Item", "Amount"
@@ -131,6 +150,12 @@ public class BudgetView extends javax.swing.JFrame {
             }
         });
 
+        BudgetSpentLabel.setText("$0.00");
+
+        jLabel9.setText("SPENT");
+
+        ALabel.setText("BUDGET NAME");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -161,6 +186,18 @@ public class BudgetView extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(AmountField, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(BudgetSpentLabel)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(BudgetBalanceLabel))
+                    .addComponent(jLabel4))
+                .addGap(64, 64, 64))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -172,18 +209,14 @@ public class BudgetView extends javax.swing.JFrame {
                         .addGap(40, 40, 40)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(173, 173, 173)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(BudgetBalanceLabel))
-                            .addComponent(jLabel4)))
+                        .addGap(164, 164, 164)
+                        .addComponent(jLabel5))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
+                        .addGap(178, 178, 178)
                         .addComponent(BudgetNameLabel))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(164, 164, 164)
-                        .addComponent(jLabel5)))
+                        .addGap(152, 152, 152)
+                        .addComponent(ALabel)))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -193,13 +226,19 @@ public class BudgetView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(BackButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addComponent(BudgetNameLabel)
-                .addGap(42, 42, 42)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BudgetBalanceLabel)
                 .addGap(18, 18, 18)
+                .addComponent(ALabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BudgetNameLabel)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BudgetBalanceLabel)
+                    .addComponent(BudgetSpentLabel))
+                .addGap(14, 14, 14)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
@@ -244,6 +283,10 @@ public class BudgetView extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(evt.getSource() == AddButton){
 
+            if(DateField.getText() == null || ItemField.getText() == null || AmountField.getText() == null){
+                JOptionPane.showMessageDialog(rootPane, "All fields must have a value.");
+            }
+            else{
             SerializedDataCntl.getSerializedDataCntl().getSerializedDataModel().getUserList()
                     .getTheUserList().get(0).getTheAccountList().get(0)
                     .getTheExpenseList()
@@ -254,18 +297,26 @@ public class BudgetView extends javax.swing.JFrame {
             System.out.println(theExpenseList.get(theExpenseList.size()-1).getExpenseName());
             System.out.println(theExpenseList.get(theExpenseList.size()-1).getExpenseAmount());
             
-            newTable = (DefaultTableModel) ExpenseTable.getModel();             
-                for(int i = 0; i<theExpenseList.size(); i++){
+            newTable = (DefaultTableModel) ExpenseTable.getModel();  
+            newTable.setRowCount(0);
+            SpentAmountDoub = 0;
+                for(int i = 1; i<theExpenseList.size(); i++){
+                    SpentAmountDoub = SpentAmountDoub + theExpenseList.get(i).getExpenseAmount();
                     ExpenseName = theExpenseList.get(i).getExpenseName();
                     ExpenseAmountDoub = theExpenseList.get(i).getExpenseAmount();
                     ExpenseDate = theExpenseList.get(i).getExpenseDate();
-                    //BudgetAmountDec = Double.toString(BudgetAmountDoub);
                     ExpenseAmount = String.format("%.2f", ExpenseAmountDoub);
+                    SpentAmount = String.format("%.2f", SpentAmountDoub);
+                    
                     Object[] ExpenseData = {ExpenseDate, ExpenseName, ExpenseAmount};
-                    newTable.addRow(ExpenseData);                 
+                    //newTable.addRow(ExpenseData);   
+                    newTable.insertRow(newTable.getRowCount(), ExpenseData);
+                    System.out.println(newTable.getRowCount());
                 }
-        newTable.fireTableDataChanged();
-            
+                BudgetSpentLabel.setText("$"+SpentAmount);
+            newTable.fireTableDataChanged();
+
+            }
         }
     }//GEN-LAST:event_AddButtonActionPerformed
 
@@ -308,11 +359,13 @@ public class BudgetView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel ALabel;
     private javax.swing.JButton AddButton;
     private javax.swing.JTextField AmountField;
     private javax.swing.JButton BackButton;
     private javax.swing.JLabel BudgetBalanceLabel;
     private javax.swing.JLabel BudgetNameLabel;
+    private javax.swing.JLabel BudgetSpentLabel;
     private javax.swing.JTextField DateField;
     private javax.swing.JTable ExpenseTable;
     private javax.swing.JTextField ItemField;
@@ -322,6 +375,7 @@ public class BudgetView extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
