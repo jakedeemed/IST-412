@@ -7,7 +7,6 @@ package ist412.Views;
 import ist412.Controllers.SerializedDataCntl;
 import ist412.Models.Budget;
 import ist412.Models.UserList;
-import ist412.Models.User;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;

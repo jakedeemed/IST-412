@@ -5,6 +5,7 @@
  */
 package ist412.Models;
 
+import ist412.Controllers.SerializedDataCntl;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -14,6 +15,8 @@ import java.util.ArrayList;
  */
 public class Budget implements Serializable {
     
+    private static final long serialVersionUID = 1L;
+    
     private String budgetName;
     private ArrayList<Expense> theExpenseList;
     private double budgetAmount = 0;
@@ -21,11 +24,14 @@ public class Budget implements Serializable {
     public Budget(String budgetName){
         this.budgetName = budgetName;
         //this.budgetAmount = budgetAmount;
+       SerializedDataCntl.getSerializedDataCntl().writeSerializedDataModel();
     }
     
     public Budget(String budgetName, double budgetAmount){
         this.budgetName = budgetName;
         this.budgetAmount = budgetAmount;
+        SerializedDataCntl.getSerializedDataCntl().writeSerializedDataModel();
+
     }
 
     /**

@@ -13,6 +13,7 @@ import java.util.ArrayList;
  *
  * @author Jorge
  */
+@Deprecated
 public class User implements Serializable {
     
     private String userName;

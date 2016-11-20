@@ -5,6 +5,7 @@
  */
 package ist412.Models;
 
+import ist412.Controllers.SerializedDataCntl;
 import java.io.Serializable;
 
 /**
@@ -12,6 +13,8 @@ import java.io.Serializable;
  * @author Jorge
  */
 public class Expense implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     private String expenseName;
     private double expenseAmount;
@@ -25,6 +28,8 @@ public class Expense implements Serializable {
         this.expenseDate = expenseDate;
         this.expenseName = expenseName;
         this.expenseAmount = expenseAmount;
+        SerializedDataCntl.getSerializedDataCntl().writeSerializedDataModel();
+
     }
     public String getExpenseName(){
         return expenseName;

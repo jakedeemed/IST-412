@@ -5,9 +5,11 @@
  */
 package ist412;
 
+import ist412.Controllers.LoginController;
 import ist412.Controllers.SerializedDataCntl;
 import ist412.Models.Budget;
 import ist412.Models.User;
+import ist412.Models.UserLogin;
 import ist412.Views.DashboardView;
 import ist412.Views.LoginView;
 
@@ -22,23 +24,10 @@ public class IST412 {
      * @throws java.lang.InterruptedException
      */
     public static void main(String[] args) throws InterruptedException {
-        User testUser = new User("test");
         
-        SerializedDataCntl.getSerializedDataCntl().getSerializedDataModel().getUserList().getTheUserList().add(testUser);
+        LoginController loginController = new LoginController();
         
-        System.out.println(SerializedDataCntl.getSerializedDataCntl().getSerializedDataModel().getUserList().getTheUserList().get(0));
-        SerializedDataCntl.getSerializedDataCntl().writeSerializedDataModel();
-        User debugUser = SerializedDataCntl.getSerializedDataCntl().getSerializedDataModel().getUserList().getTheUserList().get(0);
-        System.out.println(debugUser);
-        System.out.println(debugUser.getTheBudgetList());
-        
-        
-        LoginView initProgram = new LoginView();
-        initProgram.setVisible(true);
-        
-
-        //DashboardView initProgram = new DashboardView();
-        //initProgram.setVisible(true);
-    }
+//        SerializedDataCntl.getSerializedDataCntl().getSerializedDataModel().getUserList().getTheUserList();
+   }
     
 }

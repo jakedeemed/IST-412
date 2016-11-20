@@ -15,6 +15,8 @@ import java.util.ArrayList;
  */
 public class Account implements Serializable {
     
+    private static final long serialVersionUID = 1L;
+    
     private String accountName;
     private ArrayList<Account> theAccountList;
     private ArrayList<Expense> theExpenseList;

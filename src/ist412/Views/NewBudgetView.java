@@ -8,7 +8,6 @@ package ist412.Views;
 import ist412.Controllers.SerializedDataCntl;
 import ist412.Models.Budget;
 import ist412.Models.UserList;
-import ist412.Models.User;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 

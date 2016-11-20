@@ -5,6 +5,8 @@
  */
 package ist412.Views;
 
+import ist412.Controllers.LoginController;
+
 /**
  *
  * @author Richa
@@ -17,9 +19,18 @@ public class LoginView extends javax.swing.JFrame {
     
     public DashboardView showDashboard;
     
+    private LoginController loginController = null;
+    
+    public LoginView(LoginController theLoginController1) {
+        loginController = theLoginController1;
+        initComponents();
+    }
+    
     public LoginView() {
         initComponents();
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -134,10 +145,16 @@ public class LoginView extends javax.swing.JFrame {
     private void LoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginButtonActionPerformed
         // TODO add your handling code here:
         if(evt.getSource() == LoginButton){
-            showDashboard = new DashboardView();
-            showDashboard.setVisible(true);
-            this.setVisible(false);
-            //System.out.println(NavButton.getLocationOnScreen());
+            String tmpUsername = this.jTextField1.getText();
+            String tmpPassword = String.valueOf(this.jPasswordField1.getPassword());
+            if(this.loginController.requestAuthenticate(tmpUsername, tmpPassword)){
+                showDashboard = new DashboardView();
+                showDashboard.setVisible(true);
+                this.setVisible(false);
+            }else{
+                this.jTextField1.setText("");
+                this.jPasswordField1.setText("");
+            }
         }
     }//GEN-LAST:event_LoginButtonActionPerformed
 
